@@ -1,0 +1,163 @@
+prompt-injection-demo
+|   .env
+|   .env.example
+|   .gitignore
+|   docker-compose.yml
+|   LICENSE
+|   README.md
+|   tree.txt
+|   
++---.github
+|       CODEOWNERS
+|       
++---prompt-injection
+|   |   .gitattributes
+|   |   build.gradle
+|   |   Dockerfile
+|   |   gradlew
+|   |   gradlew.bat
+|   |   README.md
+|   |   settings.gradle
+|   |   
+|   +---.gradle
+|   |   +---8.14.4
+|   |   |   |   gc.properties
+|   |   |   |   
+|   |   |   +---checksums
+|   |   |   |       checksums.lock
+|   |   |   |       md5-checksums.bin
+|   |   |   |       sha1-checksums.bin
+|   |   |   |       
+|   |   |   +---executionHistory
+|   |   |   |       executionHistory.lock
+|   |   |   |       
+|   |   |   +---expanded
+|   |   |   +---fileChanges
+|   |   |   |       last-build.bin
+|   |   |   |       
+|   |   |   +---fileHashes
+|   |   |   |       fileHashes.bin
+|   |   |   |       fileHashes.lock
+|   |   |   |       
+|   |   |   \---vcsMetadata
+|   |   +---buildOutputCleanup
+|   |   |       buildOutputCleanup.lock
+|   |   |       cache.properties
+|   |   |       
+|   |   \---vcs-1
+|   |           gc.properties
+|   |           
+|   +---.idea
+|   |       .gitignore
+|   |       compiler.xml
+|   |       gradle.xml
+|   |       misc.xml
+|   |       workspace.xml
+|   |       
+|   +---build
+|   |   \---reports
+|   |       \---problems
+|   |               problems-report.html
+|   |               
+|   +---gradle
+|   |   \---wrapper
+|   |           gradle-wrapper.jar
+|   |           gradle-wrapper.properties
+|   |           
+|   \---src
+|       +---main
+|       |   +---java
+|       |   |   \---com
+|       |   |       \---demo
+|       |   |           \---prompt_injection
+|       |   |               |   lombok.config
+|       |   |               |   PromptInjectionApplication.java
+|       |   |               |   
+|       |   |               +---config
+|       |   |               |       AIConfiguration.java
+|       |   |               |       ModelConfig.java
+|       |   |               |       
+|       |   |               +---constant
+|       |   |               |   |   PromptInjectionConstants.java
+|       |   |               |   |   
+|       |   |               |   \---enums
+|       |   |               |           Severity.java
+|       |   |               |           Team.java
+|       |   |               |           
+|       |   |               +---controller
+|       |   |               |       ChatIntegrationController.java
+|       |   |               |       ModelConfigController.java
+|       |   |               |       TriageBotController.java
+|       |   |               |       
+|       |   |               +---entity
+|       |   |               |       BugTicketEntity.java
+|       |   |               |       
+|       |   |               +---exception
+|       |   |               |       GlobalExceptionHandler.java
+|       |   |               |       PromptInjectionRuntimeException.java
+|       |   |               |       
+|       |   |               +---model
+|       |   |               |       BugSubmissionRequest.java
+|       |   |               |       BugTriageResponse.java
+|       |   |               |       ChatMessageRequest.java
+|       |   |               |       ModelUpdateDto.java
+|       |   |               |       StandardResponse.java
+|       |   |               |       
+|       |   |               +---repository
+|       |   |               |       BugTicketRepository.java
+|       |   |               |       
+|       |   |               +---service
+|       |   |               |       ChatIntegrationService.java
+|       |   |               |       GuardedTriageBotService.java
+|       |   |               |       TriageBotService.java
+|       |   |               |       
+|       |   |               \---util
+|       |   |                       AiResponseUtils.java
+|       |   |                       
+|       |   \---resources
+|       |           application.yaml
+|       |           
+|       \---test
+|           \---java
+|               \---com
+|                   \---demo
+|                       \---prompt_injection
+|                               PromptInjectionApplicationTests.java
+|                               
+\---prompt-injection-ui
+    |   eslint.config.js
+    |   index.html
+    |   nginx.conf
+    |   package-lock.json
+    |   package.json
+    |   README.md
+    |   vite.config.js
+    |   
+    +---node_modules
+    |               
+    \---src
+        |   App.jsx
+        |   index.css
+        |   main.jsx
+        |   
+        +---components
+        |       BugSubmissionForm.jsx
+        |       ChatIntegrationTab.jsx
+        |       GuardedTab.jsx
+        |       index.js
+        |       LoginScreen.jsx
+        |       MainLayout.jsx
+        |       TicketsTab.jsx
+        |       TriageResultDialog.jsx
+        |       VulnerableTab.jsx
+        |       
+        +---constants
+        |       apiConstants.js
+        |       appConstants.js
+        |       index.js
+        |       
+        +---services
+        |       api.js
+        |       
+        \---theme
+                theme.js

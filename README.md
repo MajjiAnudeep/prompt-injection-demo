@@ -42,9 +42,64 @@ The backend is where all the meaningful logic lives. The frontend is a visual la
 | Database | PostgreSQL |
 | Frontend | React 18, Vite, Material UI |
 
-## Prerequisites
+---
 
-Before running anything, make sure you have the following installed:
+## Running the Application
+
+There are two ways to run the application: with Docker (recommended, fewer prerequisites) or locally.
+
+### Option A — Docker (Recommended)
+
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop) (includes Docker and Docker Compose).
+
+**Step 1 — Configure environment**
+
+Copy `.env.example` to `.env` in the root directory:
+
+On Linux or Mac:
+```bash
+cp .env.example .env
+```
+
+On Windows:
+```cmd
+copy .env.example .env
+```
+
+Open `.env` and fill in the two required values:
+- `DB_PASSWORD` — any strong password of your choice
+- `GEMINI_API_KEY` — get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+
+All other values have safe defaults and can be left unchanged.
+
+**Step 2 — Start the application**
+
+From the root directory:
+```bash
+docker compose up --build
+```
+
+This starts PostgreSQL, the backend, and the frontend together. The first run takes a few minutes to build the images.
+
+**Step 3 — Open the app**
+
+Go to `http://localhost:3000` in your browser.
+
+To stop the application, press `Ctrl+C` in the terminal, then run:
+```bash
+docker compose down
+```
+
+Database data is persisted in a named Docker volume and survives restarts. To wipe all data:
+```bash
+docker compose down -v
+```
+
+---
+
+### Option B — Local
+
+**Prerequisites:**
 
 **Java 17**
 ```bash
@@ -54,7 +109,7 @@ The output should show version 17 or higher. If not, download it from [adoptium.
 
 **Node.js 18 or higher**
 ```bash
-node -version
+node --version
 ```
 If not installed, download it from [nodejs.org](https://nodejs.org).
 
@@ -64,16 +119,16 @@ A running PostgreSQL instance is required. The application will create its own t
 **Gemini API Key**
 Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-## Running the Application
+---
 
-### Step 1 — Start the backend
+**Step 1 — Start the backend**
 
 Navigate to the backend directory:
 ```bash
 cd prompt-injection
 ```
 
-Set the required environment variables. The application will not start without these.
+Set the required environment variables:
 
 On Linux or Mac:
 ```bash
@@ -105,7 +160,7 @@ gradlew.bat bootRun
 
 The backend starts on `http://localhost:8081`. Wait until you see the Spring Boot startup log before moving to the next step.
 
-### Step 2 — Start the frontend
+**Step 2 — Start the frontend**
 
 Open a new terminal window and navigate to the frontend directory:
 ```bash
@@ -124,9 +179,11 @@ npm run dev
 
 The frontend starts on `http://localhost:3000`.
 
-### Step 3 — Open the app
+**Step 3 — Open the app**
 
-Go to `http://localhost:3000` in your browser. Enter any name on the login screen to begin. The name is used as your session identifier and as the reporter name on submitted tickets. There is no real authentication.
+Go to `http://localhost:3000` in your browser. Enter any name on the opening screen to begin. The name is used as your session identifier and as the reporter name on submitted tickets. There is no real authentication.
+
+---
 
 ## Project Documentation
 

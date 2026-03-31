@@ -56,7 +56,6 @@ Thumbs.db
 
 # ─── Secrets — never commit these ────────────────────────────────────────────
 
-*.env
 .env
 .env.local
 .env.*.local

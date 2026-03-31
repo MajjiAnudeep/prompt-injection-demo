@@ -1,0 +1,62 @@
+services:
+
+  # =============================================================================
+  # PostgreSQL — Database
+  # Data is persisted in a named Docker volume so it survives container restarts.
+  #
+  # To use an existing external PostgreSQL instance instead:
+  #   1. Remove or comment out this entire 'db' service block.
+  #   2. In the 'backend' service, remove 'db' from 'depends_on'.
+  #   3. Set DB_HOST in your .env to point to your external instance, e.g.:
+  #      DB_HOST=jdbc:postgresql://your-host:5432/your_database
+  # =============================================================================
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =============================================================================
+  # Backend — Spring Boot
+  # =============================================================================
+  backend:
+    build:
+      context: ./prompt-injection
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      DB_HOST: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+
+  # =============================================================================
+  # Frontend — React (served via Nginx)
+  # =============================================================================
+  frontend:
+    build:
+      context: ./prompt-injection-ui
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      UI_PORT: ${UI_PORT}
+    ports:
+      - "${UI_PORT}:3000"

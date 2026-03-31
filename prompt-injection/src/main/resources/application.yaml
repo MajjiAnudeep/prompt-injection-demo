@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 
 spring:
   application:
@@ -16,7 +16,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        # While optional in Hibernate 6, explicitly defining the dialect is sometimes preferred
         dialect: org.hibernate.dialect.PostgreSQLDialect
   ai:
     google:
